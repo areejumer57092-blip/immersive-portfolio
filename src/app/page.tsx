@@ -1,69 +1,80 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import styles from './page.module.css';
 
 export default function Home() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start']
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
+    <div className={styles.main} ref={containerRef}>
+      <motion.section 
+        className={styles.hero}
+        style={{ y, opacity }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className={styles.heroContent}
+        >
+          <h1 className={styles.title}>
+            CREATIVE<br />
+            <span className={styles.highlight}>DEVELOPER</span>
           </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className={styles.subtitle}>
+            Building immersive web experiences with modern tools and premium design engineering.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        </motion.div>
+      </motion.section>
+
+      <section className={styles.contentSection}>
+        <div className={`container ${styles.grid}`}>
+          <motion.div 
+            className={styles.card}
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h2>Premium Aesthetics</h2>
+            <p>Utilizing high-end typographic scales, considered whitespace, and refined color palettes avoiding pure black and white.</p>
+          </motion.div>
+
+          <motion.div 
+            className={styles.card}
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            Documentation
-          </a>
+            <h2>Purposeful Motion</h2>
+            <p>Spring-based physics and scroll-driven interactions that feel tactile, responsive, and hardware-accelerated.</p>
+          </motion.div>
+          
+          <motion.div 
+            className={styles.card}
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2>Robust Architecture</h2>
+            <p>Powered by Next.js, Supabase, and Playwright to ensure performance, reliability, and full-stack capabilities.</p>
+          </motion.div>
         </div>
-      </main>
+      </section>
+      
+      {/* Scroll spacer to demonstrate lenis */}
+      <div style={{ height: '50vh' }} />
     </div>
   );
 }

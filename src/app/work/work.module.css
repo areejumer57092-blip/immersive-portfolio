@@ -1,0 +1,94 @@
+.container {
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 6rem);
+  margin-bottom: 80px;
+  letter-spacing: -0.02em;
+}
+
+.projectsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+.projectCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.imageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.projectCard:hover .image {
+  transform: scale(1.05);
+}
+
+.projectInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(5,5,7,0.9) 0%, rgba(5,5,7,0) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.projectInfo h2 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.projectInfo p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.viewButton {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: none; /* handled by custom cursor */
+  width: fit-content;
+  transition: all 0.3s ease;
+}
+
+.viewButton:hover {
+  background: white;
+  color: black;
+}
